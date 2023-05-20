@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserType } from "@/database/models/user.model";
-import axios from "axios";
 import Table from "./table";
 import Add_User_Modal from "./add_user_modal";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import Image from "next/image";
 import { GetAllUsers } from "@/services/user.services";
 import { useDispatch, useSelector } from "react-redux";
