@@ -19,6 +19,35 @@ export const create_user = async (user_data: UserType) => {
     return { Status: "Error", ResponseData: null };
   }
 };
+export const UpdateUser = async (UserData: UserType) => {
+  const response = await axios.patch(
+    "/api/database.api/user.api/update.user.api",
+    {
+      ...UserData,
+    }
+  );
+
+  if (response.status === 200) {
+    return { Status: "Success", ResponseData: response.data.user };
+  } else {
+    return { Status: "Error", ResponseData: null };
+  }
+};
+
+export const DeleteUser = async (UserData: UserType) => {
+  const response = await axios.post(
+    "/api/database.api/user.api/delete.user.api",
+    {
+      ...UserData,
+    }
+  );
+
+  if (response.status === 200) {
+    return { Status: "Success", ResponseData: response.data.user };
+  } else {
+    return { Status: "Error", ResponseData: null };
+  }
+};
 
 export const GetAllUsers = async () => {
   const response = await axios.get("/api/database.api/user.api/get.users.api");

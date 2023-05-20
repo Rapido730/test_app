@@ -2,7 +2,6 @@ import { UserActionType } from "./types.user";
 
 // import { Template_User_Type } from "DB/models/template_Categories.model";
 import { UserType } from "../../database/models/user.model";
-import { ActionType } from "../actionCreator";
 
 export interface UserStateType {
   RedUserData: UserType[];
@@ -74,20 +73,48 @@ export const UserReducer = (State = INITIALSTATE, Action: any) => {
         user._id === payload._id ? payload : user
       );
 
-      return {
+      const UpdatedFilteredUserList = State.FilteredUserData.map((user) =>
+        user._id === payload._id ? payload : user
+      );
+
+      const NewState = {
         ...State,
         User_Data: UpdatedUserList,
+        FilteredUserData: UpdatedFilteredUserList,
       };
+      return NewState;
     }
-    case UserActionType.UpdateUser: {
-      const FilteredUserList = State.RedUserData.filter(
+    case UserActionType.DeleteUser: {
+      const UpdatedUserList = State.RedUserData.filter(
         (user) => user._id !== payload._id
       );
 
-      return {
+      const NewTotalPage = Math.ceil(UpdatedUserList.length / 6);
+
+      const NewCurrentPage =
+        State.CurrentPage === 0
+          ? NewTotalPage >= 1
+            ? 1
+            : 0
+          : Math.min(State.CurrentPage, State.TotalPage);
+
+      let FilteredData: Array<UserType> = [];
+
+      if (NewCurrentPage != 0) {
+        FilteredData = UpdatedUserList.slice(
+          (NewCurrentPage - 1) * limit,
+          (NewCurrentPage - 1) * limit + 6
+        );
+      }
+
+      const NewState = {
         ...State,
-        User_Data: FilteredUserList,
+        User_Data: UpdatedUserList,
+        FilteredUserData: FilteredData,
+        CurrentPage: NewCurrentPage,
+        TotalPage: NewTotalPage,
       };
+      return NewState;
     }
     default:
       return State;

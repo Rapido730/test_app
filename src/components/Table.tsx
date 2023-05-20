@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useTable } from "react-table";
 import { UserType } from "@/database/models/user.model";
 import { useSelector, useDispatch } from "react-redux";
 import { StateType } from "@/reduxStore/rootReducer";
 import Image from "next/image";
+import { Form } from "react-bootstrap";
 
-import Edit_Icon from "../assests/Edit.svg";
-import Delete_Icon from "../assests/Delete.svg";
 import Create_Action from "@/reduxStore/actionCreator";
 import { UserActionType } from "@/reduxStore/user/types.user";
+import TableRow from "./tableRow";
 
 interface u {
   name: string;
@@ -18,52 +17,42 @@ interface u {
 }
 
 const R_Table = () => {
+  const dispatch = useDispatch();
+
   const { FilteredUserData, CurrentPage, TotalPage } = useSelector(
     (State: StateType) => State.User
   );
-  const [UserData, SetUserData] = useState<Array<UserType>>(FilteredUserData);
 
-  const dispatch = useDispatch();
+  const [Pages, SetPages] = useState(
+    Array.from({ length: TotalPage }, (_, i) => i + 1)
+  );
+  const [UserData, SetUserData] = useState<Array<UserType>>(FilteredUserData);
 
   useEffect(() => {
     SetUserData(FilteredUserData);
   }, [FilteredUserData]);
 
+  useEffect(() => {
+    SetPages(Array.from({ length: TotalPage }, (_, i) => i + 1));
+  }, [TotalPage]);
+
   return (
-    <div className="tw-flex tw-flex-col tw-px-4">
-      {UserData.map((user) => (
-        <div
-          key={user.email}
-          className="tw-grid tw-grid-cols-2 tw-justify-between"
-        >
-          <div className="">
-            <h1 className="tw-text-xl tw-font-bold">{user.name}</h1>
-            <h1 className="tw-text-sm">{user.email}</h1>
-          </div>
-          <div className=" tw-grid tw-grid-cols-4 tw-space-x-8">
-            <div>{user.status}</div>
-            <div>{user.role}</div>
-            <div>{user.last_login}</div>
-            <div className="tw-flex tw-space-x-4">
-              <div>
-                <Image
-                  className="tw-h-6 tw-w-6 tw-cursor-pointer hover:tw-ease-in-out hover:tw-scale-125 tw-duration-300 "
-                  src={Delete_Icon}
-                  alt="delete"
-                />
-              </div>
-              <div>
-                <Image
-                  className="tw-h-6 tw-w-6 tw-cursor-pointer hover:tw-ease-in-out hover:tw-scale-125 tw-duration-300"
-                  src={Edit_Icon}
-                  alt="edit"
-                />
-              </div>
-            </div>
-          </div>
+    <div className="tw-flex tw-flex-col tw-my-2 tw-px-4">
+      <div className="tw-grid tw-grid-cols-2 tw-text-gray-500 tw-font-bold tw-justify-between">
+        <div className="">
+          <h1 className="tw-text-sm tw-font-bold tw">{"Name"}</h1>
         </div>
+        <div className=" tw-text-sm tw-grid tw-grid-cols-4 tw-space-x-8">
+          <div>{"Status"}</div>
+          <div>{"Role"}</div>
+          <div>{"Last Login"}</div>
+          <div className="tw-flex tw-space-x-4"></div>
+        </div>
+      </div>
+      {UserData.map((user) => (
+        <TableRow key={user.email} user={user} />
       ))}
-      <div className="tw-flex tw-justify-between">
+      <div className="tw-flex tw-justify-between tw-mb-4">
         <button
           className={
             "tw-p-2 tw-border-2 " + (CurrentPage === 1 ? " tw-invisible " : "")
@@ -75,7 +64,22 @@ const R_Table = () => {
           {" "}
           prev
         </button>
-
+        <div className="tw-flex  tw-px-2 tw-rounded-lg tw-space-x-2 tw-w-fit">
+          {Pages.map((page) => (
+            <div
+              key={page}
+              onClick={() => {
+                dispatch(Create_Action(UserActionType.PageChange, page));
+              }}
+              className={
+                " tw-px-4 tw-cursor-pointer tw-rounded-lg tw-shadow-lg" +
+                (page !== CurrentPage ? " tw-text-gray-500" : "")
+              }
+            >
+              <h1 className="tw-text-xl  ">{page}</h1>
+            </div>
+          ))}
+        </div>
         <button
           className={
             "tw-p-2 tw-border-2 " +

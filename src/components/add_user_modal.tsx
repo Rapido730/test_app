@@ -85,42 +85,10 @@ const Add_Task_Modal_Form = ({
         NewData.push(ResponseData);
         dispatch(Create_Action(UserActionType.SetUserData, NewData));
         SetModalFormVisible(false);
-      } else if (Status == "Database_Error") {
-      } else if (Status === "Worker not found!") {
-        // Set_Worker_Error_Notification({
-        //   IsOpen: true,
-        //   text: "developer name doesn't exists!",
-        // });
-        // setTimeout(() => {
-        //   Set_Worker_Error_Notification({
-        //     IsOpen: false,
-        //     text: "",
-        //   });
-        // }, 3000);
-        return;
       } else {
-        // Set_Worker_Error_Notification({
-        //   IsOpen: true,
-        //   text: "developer name doesn't exists!",
-        // });
-        // setTimeout(() => {
-        //   Set_Worker_Error_Notification({
-        //     IsOpen: false,
-        //     text: "",
-        //   });
-        // }, 3000);
-
         return;
       }
-    } catch (err) {
-      //   Set_Notification_Data({
-      //     Heading: "Error in app",
-      //     Body: " try again!",
-      //   });
-      //   Set_Notification_Toast_Show(true);
-    }
-
-    // console.log(response);
+    } catch (err) {}
   };
 
   return (

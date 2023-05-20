@@ -53,24 +53,28 @@ const Body = () => {
           <h1>{"Company Settings"}</h1>
         </div>
         <div className="tw-flex tw-my-4 tw-border-collapse tw-border-2 tw-px-4 tw-rounded-lg tw-w-fit">
-          <div className="tw-border-r-2 tw-px-2">
-            <h1 className="tw-text-xl  ">user</h1>
+          <div className="tw-cursor-pointer tw-border-r-2 tw-px-2">
+            <h1 className="tw-text-sm tw-my-auto tw-mx-auto  ">{"General"}</h1>
           </div>
-          <div className="tw-border-r-2 tw-px-2">
-            <h1 className="tw-text-xl  ">user</h1>
+          <div className="tw-cursor-pointer  tw-border-r-2 tw-px-2 tw-bg-gray-200">
+            <h1 className="tw-text-sm tw-my-auto tw-mx-auto tw-font-bold ">
+              {"Users"}
+            </h1>
           </div>
-          <div className="tw-border-r-2 tw-px-2">
-            <h1 className="tw-text-xl ">user</h1>
+          <div className="tw-cursor-pointer tw-border-r-2 tw-px-2">
+            <h1 className="tw-text-sm tw-my-auto tw-mx-auto ">{"Plan"}</h1>
           </div>
-          <div className="tw-border-r-2 tw-px-2">
-            <h1 className="tw-text-xl ">user</h1>
+          <div className="tw-cursor-pointer tw-border-r-2 tw-px-2">
+            <h1 className="tw-text-sm tw-my-auto tw-mx-auto ">{"Billing"}</h1>
           </div>
-          <div className=" tw-px-2">
-            <h1 className="tw-text-xl ">user</h1>
+          <div className="tw-cursor-pointer  tw-px-2">
+            <h1 className="tw-text-sm tw-my-auto tw-mx-auto ">
+              {"Integrations"}
+            </h1>
           </div>
         </div>
-        <div className="tw-flex tw-flex-col tw-border-2">
-          <div className="tw-flex tw-justify-between">
+        <div className="tw-flex tw-flex-col tw-border-2 tw-rounded-md">
+          <div className="tw-flex tw-justify-between tw-border-b-2 tw-px-4 tw-py-2">
             <div className="">
               <div className="tw-flex">
                 <h1 className="tw-font-bold tw-text-xl">Users</h1>
@@ -99,7 +103,6 @@ const Body = () => {
             </div>
           </div>
           <R_Table />
-       
         </div>
       </div>
 
