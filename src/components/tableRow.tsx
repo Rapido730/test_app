@@ -96,7 +96,7 @@ const TableRow = ({ user }: props) => {
         ) : (
           <div>{user.role}</div>
         )}
-        <div>{user.last_login}</div>
+        <div>{user.last_login?.toString()}</div>
         <div className="tw-flex tw-space-x-4">
           <div>
             <Image
