@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { UserType } from "@/database/models/user.model";
-import Table from "./table";
+import Table from "./Table";
 import Add_User_Modal from "./add_user_modal";
 import Image from "next/image";
 import { GetAllUsers } from "@/services/user.services";
