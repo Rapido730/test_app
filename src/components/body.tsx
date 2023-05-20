@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserType } from "@/database/models/user.model";
 import axios from "axios";
-import R_Table from "./Table";
+import Table from "./table";
 import Add_User_Modal from "./add_user_modal";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -104,7 +104,7 @@ const Body = () => {
               </button>
             </div>
           </div>
-          <R_Table />
+          <Table />
         </div>
       </div>
 
