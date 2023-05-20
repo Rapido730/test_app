@@ -18,7 +18,7 @@ export default async function create(
         name: data.name,
         email: data.email,
         role: data.role,
-        status: "invited",
+        status: "Invited",
         last_login: new Date(),
       });
       await new_User.save();

@@ -8,6 +8,8 @@ import { Form } from "react-bootstrap";
 import Create_Action from "@/reduxStore/actionCreator";
 import { UserActionType } from "@/reduxStore/user/types.user";
 import TableRow from "./tableRow";
+import Right_Arrow from "../assests/arrow-right-solid.svg";
+import Left_Arrow from "../assests/arrow-left-solid.svg";
 
 interface u {
   name: string;
@@ -37,8 +39,8 @@ const R_Table = () => {
   }, [TotalPage]);
 
   return (
-    <div className="tw-flex tw-flex-col tw-my-2 tw-px-4">
-      <div className="tw-grid tw-grid-cols-2 tw-text-gray-500 tw-font-bold tw-justify-between">
+    <div className="tw-flex tw-flex-col tw-my-2 ">
+      <div className="tw-grid tw-grid-cols-2 tw-text-gray-500 tw-font-bold tw-justify-between tw-px-4">
         <div className="">
           <h1 className="tw-text-sm tw-font-bold tw">{"Name"}</h1>
         </div>
@@ -49,20 +51,25 @@ const R_Table = () => {
           <div className="tw-flex tw-space-x-4"></div>
         </div>
       </div>
-      {UserData.map((user) => (
-        <TableRow key={user.email} user={user} />
+      {UserData.map((user,index) => (
+        <TableRow key={user.email} user={user} index={index} />
       ))}
-      <div className="tw-flex tw-justify-between tw-mb-4">
+      <div className="tw-flex tw-justify-between tw-mb-4 tw-mt-4 tw-px-2">
         <button
           className={
-            "tw-p-2 tw-border-2 " + (CurrentPage === 1 ? " tw-invisible " : "")
+            "tw-px-2 tw-border-2 tw-flex tw-space-x-2 tw-rounded-md " +
+            (CurrentPage === 1 ? " tw-invisible " : "")
           }
           onClick={() => {
             dispatch(Create_Action(UserActionType.PageChange, CurrentPage - 1));
           }}
         >
-          {" "}
-          prev
+          <Image
+            className="tw-h-4 tw-w-4 tw-my-auto  tw-cursor-pointer hover:tw-ease-in-out hover:tw-scale-125 tw-duration-300 "
+            src={Left_Arrow}
+            alt="delete"
+          />
+          <h1 className="my-auto tw-text-lg">Prev</h1>
         </button>
         <div className="tw-flex  tw-px-2 tw-rounded-lg tw-space-x-2 tw-w-fit">
           {Pages.map((page) => (
@@ -82,15 +89,19 @@ const R_Table = () => {
         </div>
         <button
           className={
-            "tw-p-2 tw-border-2 " +
+            "tw-px-2 tw-border-2 tw-flex tw-space-x-2 tw-rounded-md" +
             (CurrentPage === TotalPage ? " tw-invisible " : "")
           }
           onClick={() => {
             dispatch(Create_Action(UserActionType.PageChange, CurrentPage + 1));
           }}
         >
-          {" "}
-          next
+          <h1 className="my-auto tw-text-lg">Next</h1>
+          <Image
+            className="tw-h-4 tw-w-4 tw-my-auto  tw-cursor-pointer hover:tw-ease-in-out hover:tw-scale-125 tw-duration-300 "
+            src={Right_Arrow}
+            alt="delete"
+          />
         </button>
       </div>
     </div>

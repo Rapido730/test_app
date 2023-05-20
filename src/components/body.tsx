@@ -5,20 +5,14 @@ import R_Table from "./Table";
 import Add_User_Modal from "./add_user_modal";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Image from "next/image";
 import { GetAllUsers } from "@/services/user.services";
 import { useDispatch, useSelector } from "react-redux";
 import Create_Action from "@/reduxStore/actionCreator";
 import { UserActionType } from "@/reduxStore/user/types.user";
 import { StateType } from "@/reduxStore/rootReducer";
-const User: UserType = {
-  name: "amit",
-  email: "sharmamit510@gmail.com",
-  role: "Admin",
-  status: "invited",
-  last_login: new Date("2023-05-18T11:19:25.385Z"),
-  created_At: new Date("2023-05-18T11:19:24.392Z"),
-  updated_At: new Date("2023-05-18T11:19:24.392Z"),
-};
+import Download_Icon from "../assests/download.svg";
+import Plus_Icon from "../assests/plus.svg";
 
 const Body = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -48,7 +42,7 @@ const Body = () => {
 
   return (
     <>
-      <div>
+      <div className=" max-md:tw-w-max   ">
         <div>
           <h1>{"Company Settings"}</h1>
         </div>
@@ -86,19 +80,27 @@ const Body = () => {
                 </h1>
               </div>
             </div>
-            <div className=" tw-space-x-2">
-              <button className="tw-border-2 tw-rounded-md tw-px-2 tw-py-1 tw-font-bold">
-                {" "}
-                Download CSV{" "}
+            <div className=" tw-space-x-2 tw-h-fit tw-my-auto tw-flex">
+              <button className="tw-border-2 tw-rounded-md tw-px-2  tw-font-bold hover:tw-bg-gray-200 tw-flex tw-space-x-2 ">
+                <Image
+                  className="tw-h-4 tw-w-4 tw-my-auto  tw-cursor-pointer hover:tw-ease-in-out hover:tw-scale-125 tw-duration-300 "
+                  src={Download_Icon}
+                  alt="delete"
+                />
+                <h1 className="my-auto tw-text-lg">Download CSV</h1>
               </button>
               <button
-                className="tw-border-2 text-md tw-rounded-md tw-px-2 tw-py-1 tw-font-bold"
+                className="tw-border-2 text-md tw-rounded-md tw-px-2  tw-font-bold tw-flex tw-space-x-2  tw-bg-blue-500 hover:tw-bg-blue-700 tw-text-white"
                 onClick={() => {
                   setModalShow(true);
                 }}
               >
-                {" "}
-                Add User
+                <Image
+                  className="tw-h-4 tw-w-4 tw-my-auto  tw-cursor-pointer hover:tw-ease-in-out hover:tw-scale-125 tw-duration-300 tw-invert"
+                  src={Plus_Icon}
+                  alt="delete"
+                />
+                <h1 className="my-auto tw-text-lg">Add User</h1>
               </button>
             </div>
           </div>
