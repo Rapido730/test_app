@@ -1,6 +1,5 @@
 import { UserActionType } from "./types.user";
 
-// import { Template_User_Type } from "DB/models/template_Categories.model";
 import { UserType } from "../../database/models/user.model";
 
 export interface UserStateType {
@@ -79,7 +78,7 @@ export const UserReducer = (State = INITIALSTATE, Action: any) => {
 
       const NewState = {
         ...State,
-        User_Data: UpdatedUserList,
+        RedUserData: UpdatedUserList,
         FilteredUserData: UpdatedFilteredUserList,
       };
       return NewState;
@@ -96,7 +95,7 @@ export const UserReducer = (State = INITIALSTATE, Action: any) => {
           ? NewTotalPage >= 1
             ? 1
             : 0
-          : Math.min(State.CurrentPage, State.TotalPage);
+          : Math.min(State.CurrentPage, NewTotalPage);
 
       let FilteredData: Array<UserType> = [];
 
@@ -109,7 +108,7 @@ export const UserReducer = (State = INITIALSTATE, Action: any) => {
 
       const NewState = {
         ...State,
-        User_Data: UpdatedUserList,
+        RedUserData: UpdatedUserList,
         FilteredUserData: FilteredData,
         CurrentPage: NewCurrentPage,
         TotalPage: NewTotalPage,
