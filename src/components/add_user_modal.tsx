@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Modal, Form, Button } from "react-bootstrap";
 import { StateType } from "@/reduxStore/rootReducer";
-import Create_Action from "@/reduxStore/actionCreator";
+import CreateAction from "@/reduxStore/actionCreator";
 import { UserActionType } from "@/reduxStore/user/types.user";
 
 interface Props {
@@ -13,10 +13,7 @@ interface Props {
   ModalFormVisible: boolean;
 }
 
-const Add_Task_Modal_Form = ({
-  SetModalFormVisible,
-  ModalFormVisible,
-}: Props) => {
+const AddUserModalForm = ({ SetModalFormVisible, ModalFormVisible }: Props) => {
   const [FormField, SetFormField] = useState<UserType>({
     name: "",
     email: "",
@@ -83,7 +80,7 @@ const Add_Task_Modal_Form = ({
       if (Status === "Success" && ResponseData) {
         const NewData = RedUserData;
         NewData.push(ResponseData);
-        dispatch(Create_Action(UserActionType.SetUserData, NewData));
+        dispatch(CreateAction(UserActionType.SetUserData, NewData));
         SetModalFormVisible(false);
       } else {
         return;
@@ -162,4 +159,4 @@ const Add_Task_Modal_Form = ({
   );
 };
 
-export default Add_Task_Modal_Form;
+export default AddUserModalForm;

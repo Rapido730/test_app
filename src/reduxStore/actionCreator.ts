@@ -7,7 +7,7 @@ export interface ActionType {
 
 export type Payload = undefined | UserType | UserType[] | null | number;
 
-const Create_Action = (type: String, payload: Payload) => {
+const CreateAction = (type: String, payload: Payload) => {
   return { type, payload };
 };
-export default Create_Action;
+export default CreateAction;

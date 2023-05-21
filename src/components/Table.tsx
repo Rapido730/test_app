@@ -5,7 +5,7 @@ import { StateType } from "@/reduxStore/rootReducer";
 import Image from "next/image";
 import { Form } from "react-bootstrap";
 
-import Create_Action from "@/reduxStore/actionCreator";
+import CreateAction from "@/reduxStore/actionCreator";
 import { UserActionType } from "@/reduxStore/user/types.user";
 import TableRow from "./table_row";
 import Right_Arrow from "../assests/arrow-right-solid.svg";
@@ -199,7 +199,7 @@ const Table = () => {
             (CurrentPage === 1 ? " tw-invisible " : "")
           }
           onClick={() => {
-            dispatch(Create_Action(UserActionType.PageChange, CurrentPage - 1));
+            dispatch(CreateAction(UserActionType.PageChange, CurrentPage - 1));
           }}
         >
           <Image
@@ -214,7 +214,7 @@ const Table = () => {
             <div
               key={page}
               onClick={() => {
-                dispatch(Create_Action(UserActionType.PageChange, page));
+                dispatch(CreateAction(UserActionType.PageChange, page));
               }}
               className={
                 " tw-px-4 tw-cursor-pointer tw-rounded-lg tw-shadow-lg" +
@@ -231,7 +231,7 @@ const Table = () => {
             (CurrentPage === TotalPage ? " tw-invisible " : "")
           }
           onClick={() => {
-            dispatch(Create_Action(UserActionType.PageChange, CurrentPage + 1));
+            dispatch(CreateAction(UserActionType.PageChange, CurrentPage + 1));
           }}
         >
           <h1 className="my-auto tw-text-lg">Next</h1>

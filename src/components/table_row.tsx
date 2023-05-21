@@ -11,10 +11,9 @@ import Edit_Icon from "../assests/Edit.svg";
 import Delete_Icon from "../assests/Delete.svg";
 import Save_Icon from "../assests/Save.svg";
 import Circle_Icon from "../assests/circle.svg";
-import Circle_Icon_Green from "../assests/circle_green.svg";
 import { DeleteUser, UpdateUser } from "@/services/user.services";
 import { useDispatch } from "react-redux";
-import Create_Action from "@/reduxStore/actionCreator";
+import CreateAction from "@/reduxStore/actionCreator";
 import { UserActionType } from "@/reduxStore/user/types.user";
 
 const TableRow = ({ user, index }: props) => {
@@ -37,7 +36,7 @@ const TableRow = ({ user, index }: props) => {
 
       const { Status, ResponseData } = await DeleteUser(data);
       if (Status === "Success" && ResponseData) {
-        dispatch(Create_Action(UserActionType.DeleteUser, data));
+        dispatch(CreateAction(UserActionType.DeleteUser, data));
       } else {
         return;
       }
@@ -52,7 +51,7 @@ const TableRow = ({ user, index }: props) => {
 
       const { Status, ResponseData } = await UpdateUser(data);
       if (Status === "Success" && ResponseData) {
-        dispatch(Create_Action(UserActionType.UpdateUser, ResponseData));
+        dispatch(CreateAction(UserActionType.UpdateUser, ResponseData));
         SetEdit(false);
       } else {
         return;
@@ -70,7 +69,7 @@ const TableRow = ({ user, index }: props) => {
     >
       <div className="">
         {IsEdit ? (
-          <div>
+          <div className="tw-my-2">
             <Form.Group className="mb-3 tw-w-8/12" controlId="formBasicEmail">
               <Form.Control
                 required
@@ -94,19 +93,12 @@ const TableRow = ({ user, index }: props) => {
             (user.status === "Invited" ? " tw-bg-gray-200" : "tw-bg-green-200")
           }
         >
-          {user.status === "Invited" ? (
-            <Image
-              className={"tw-h-2 tw-w-2 tw-my-auto tw-stroke-green-500"}
-              src={Circle_Icon_Green}
-              alt="cir"
-            />
-          ) : (
-            <Image
-              className={"tw-h-2 tw-w-2 tw-my-auto "}
-              src={Circle_Icon_Green}
-              alt="cir"
-            />
-          )}
+          <Image
+            className={"tw-h-2 tw-w-2 tw-my-auto "}
+            src={Circle_Icon}
+            alt="cir"
+          />
+
           <h1 className="tw-text-base tw-my-auto">{user.status}</h1>
         </div>
         {IsEdit ? (

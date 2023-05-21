@@ -1,39 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { UserType } from "@/database/models/user.model";
 import Table from "./Table";
-import Add_User_Modal from "./add_user_modal";
 import Image from "next/image";
 import { GetAllUsers } from "@/services/user.services";
 import { useDispatch, useSelector } from "react-redux";
-import Create_Action from "@/reduxStore/actionCreator";
+import CreateAction from "@/reduxStore/actionCreator";
 import { UserActionType } from "@/reduxStore/user/types.user";
 import { StateType } from "@/reduxStore/rootReducer";
 import Download_Icon from "../assests/download.svg";
 import Plus_Icon from "../assests/plus.svg";
+import AddUserModalForm from "./add_user_modal";
+import { CSVLink } from "react-csv";
+
+const headers = [
+  { label: "ID", key: "_id" },
+  { label: "Name", key: "name" },
+  { label: "Email", key: "email" },
+  { label: "Status", key: "status" },
+  { label: "Role", key: "role" },
+  { label: "Last_Login", key: "last_login" },
+];
 
 const Body = () => {
   const [modalShow, setModalShow] = useState(false);
   const dispatch = useDispatch();
 
   const { RedUserData } = useSelector((State: StateType) => State.User);
-
-  const [UsersData, SetUsersData] = useState<Array<UserType>>(RedUserData);
-
   const GetAllUserData = async () => {
     const { Status, ResponseData } = await GetAllUsers();
 
     if (Status === "Success") {
-      dispatch(Create_Action(UserActionType.SetUserData, ResponseData));
+      dispatch(CreateAction(UserActionType.SetUserData, ResponseData));
     }
   };
 
   useEffect(() => {
     GetAllUserData();
   }, []);
-
-  useEffect(() => {
-    SetUsersData(RedUserData);
-  }, [RedUserData]);
 
   // console.log({ UserData });
 
@@ -78,14 +81,21 @@ const Body = () => {
               </div>
             </div>
             <div className=" tw-space-x-2 tw-h-fit tw-my-auto tw-flex">
-              <button className="tw-border-2 tw-rounded-md tw-px-2  tw-font-bold hover:tw-bg-gray-200 tw-flex tw-space-x-2 ">
-                <Image
-                  className="tw-h-4 tw-w-4 tw-my-auto  tw-cursor-pointer hover:tw-ease-in-out hover:tw-scale-125 tw-duration-300 "
-                  src={Download_Icon}
-                  alt="delete"
-                />
-                <h1 className="my-auto tw-text-lg">Download CSV</h1>
-              </button>
+              <CSVLink
+                data={RedUserData}
+                headers={headers}
+                filename="user_data"
+                className="tw-no-underline tw-text-black hover:tw-text-black"
+              >
+                <button className="tw-border-2 tw-rounded-md tw-px-2  tw-font-bold hover:tw-bg-gray-200 tw-flex tw-space-x-2 ">
+                  <Image
+                    className="tw-h-4 tw-w-4 tw-my-auto  tw-cursor-pointer hover:tw-ease-in-out hover:tw-scale-125 tw-duration-300 "
+                    src={Download_Icon}
+                    alt="delete"
+                  />
+                  <h1 className="my-auto tw-text-lg ">Download CSV</h1>
+                </button>
+              </CSVLink>
               <button
                 className="tw-border-2 text-md tw-rounded-md tw-px-2  tw-font-bold tw-flex tw-space-x-2  tw-bg-blue-500 hover:tw-bg-blue-700 tw-text-white"
                 onClick={() => {
@@ -106,7 +116,7 @@ const Body = () => {
       </div>
 
       {modalShow && (
-        <Add_User_Modal
+        <AddUserModalForm
           ModalFormVisible={modalShow}
           SetModalFormVisible={setModalShow}
         />
